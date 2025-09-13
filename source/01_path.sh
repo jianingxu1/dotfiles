@@ -1,10 +1,6 @@
-paths=(
-  ~/.local/bin
-  $DOTFILES/bin
-)
+# ensure dotfiles bin directory is loaded first
+PATH="$DOTFILES/bin:$HOME/bin:/usr/local/sbin:$PATH"
+PATH="$PATH:/opt/homebrew/bin"
+PATH="$PATH:/opt/homebrew/sbin"
 
-export PATH
-for p in "${paths[@]}"; do
-  [[ -d "$p" ]] && PATH="$p:$(path_remove "$p")"
-done
-unset p paths
+export -U PATH
