@@ -1,61 +1,50 @@
-[user]
-  name = Ben Alman
-  email = EMAIL
 [core]
   autocrlf = input
-  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+  editor = vim
   excludesfile = ~/.gitignore_global
-[apply]
-  whitespace = fix
-[alias]
-  br = branch
-  ci = commit
-  co = checkout
-  df = diff
-  g = grep -I
-  lg = log -p
-  pp = !"echo 'Pull'; git pull; echo 'Push'; git push"
-  rb = rbranch
-  rv = review
-  st = status
-  ksdiff = difftool -y -t Kaleidoscope
-[branch "master"]
-  remote = origin
-  merge = refs/heads/master
 [color]
-  ui = auto
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-[color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
-[push]
-  default = simple
-[merge]
-  log = true
-[difftool "Kaleidoscope"]
-  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
-[rerere]
-  enabled = 1
-[url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
-[url "git://github.com/"]
-  insteadOf = "github:"
-[url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-  insteadOf = "gist:"
-[url "git@heroku.com:"]
-  insteadOf = "heroku:"
+    ui = auto
+[core]
+    autocrlf = input
+    editor = vim
+    excludesfile = ~/.gitignore_global
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = "code --wait --diff $LOCAL $REMOTE"
+[log]
+    # Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+    abbrevCommit = true
+[pull]
+    rebase = true
+[alias]
+  # List available aliases
+  aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
+  gl = config --global -l         # list all configurations
+
+  # Information
+  st = status -sb         # short status
+  ll = log --oneline      # short log
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+  # Navigation
+  b = branch
+  co = checkout
+  sw = switch
+
+  # Commit
+  a = add
+  c = commit --verbose
+  ca = commit -a --verbose
+  cm = commit -m
+
+  # Fixing
+  rt = restore
+  fix = commit --amend --verbose
+  afix = commit -a --amend --verbose
+  # Undo last commit but keep changed files in stage
+  uncommit = reset --soft HEAD~1
+  rei = rebase -i
+  reiall = rebase -i --root
+  cont = rebase --continue
