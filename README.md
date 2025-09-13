@@ -1,6 +1,34 @@
 # Dotfiles
 
 My OSX / Ubuntu dotfiles.
+ 
+## Index
+
+- [About this project](#about-this-project)
+- [How the "dotfiles" command works](#how-the-dotfiles-command-works)
+  - [Other subdirectories](#other-subdirectories)
+  - [The "copy" step](#the-copy-step)
+  - [The "link" step](#the-link-step)
+  - [The "init" step](#the-init-step)
+    - [OS X](#os-x)
+    - [Ubuntu](#ubuntu)
+    - [Both](#both)
+- [Hacking my dotfiles](#hacking-my-dotfiles)
+- [Installation](#installation)
+  - [OS X Notes](#os-x-notes)
+  - [Ubuntu Notes](#ubuntu-notes)
+  - [Heed this critically important warning before you install](#heed-this-critically-important-warning-before-you-install)
+  - [Actual installation (for you)](#actual-installation-for-you)
+    - [Ubuntu](#install-you-ubuntu)
+    - [macOS](#install-you-macos)
+  - [Actual installation (for me)](#actual-installation-for-me)
+    - [Ubuntu](#install-me-ubuntu)
+    - [macOS](#install-me-macos)
+- [Aliases and Functions](#aliases-and-functions)
+- [Scripts](#scripts)
+- [Prompt](#prompt)
+- [Inspiration](#inspiration)
+- [License](#license)
 
 ## About this project
 
@@ -98,20 +126,42 @@ Why? Because I often completely break this repo while updating. Which means that
 1. Fork this repo
 1. Open a terminal/shell and do this (change `cowboy` and `master` as appropriate):
 
+<a id="install-you-ubuntu"></a>
 #### Ubuntu
 
 ```sh
-export DOTFILES_GH_USER=cowboy
-export DOTFILES_GH_BRANCH=master
+export DOTFILES_GH_USER=jianingxu1
+export DOTFILES_GH_BRANCH=main
 bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
 
+<a id="install-you-macos"></a>
 #### macOS
 
 ```sh
-export DOTFILES_GH_USER=cowboy
-export DOTFILES_GH_BRANCH=master
-bash -c "$(curl -fsSL https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
+export DOTFILES_GH_USER=jianingxu1
+export DOTFILES_GH_BRANCH=main
+bash -c "$(curl -fsSL https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.zshrc
+```
+
+Or:
+```sh
+git clone https://github.com/jianingxu1/dotfiles.git ~/.dotfiles --recursive
+~/.dotfiles/bin/dotfiles
+source ~/.zshrc
+```
+
+To update this dotfiles repository using a "personal" SSH key:
+
+```sh
+ssh-keygen -t rsa -b 4096 -C "58917306+jianingxu1@users.noreply.github.com" -f ~/.ssh/id_rsa_personal
+cat ~/.ssh/id_rsa_personal.pub
+# Add this key to Github account, under Settings -> SSH and GPG Keys -> New SSH key
+cd ~/.dotfiles
+git config user.email 58917306+jianingxu1@users.noreply.github.com
+git config user.name "Jianing Xu"
+git remote set-url origin git@github.com-personal:jianingxu1/dotfiles.git
+# Now you can push changes to this repository!
 ```
 
 Since you'll be using the [dotfiles][dotfiles] command on subsequent runs, you'll only have to set the `DOTFILES_GH_USER` variable for the initial install, but if you have a custom branch, you _will_ need to export `DOTFILES_GH_BRANCH` for subsequent runs.
@@ -120,12 +170,14 @@ There's a lot of stuff that requires admin access via `sudo`, so be warned that 
 
 ### Actual installation (for me)
 
+<a id="install-me-ubuntu"></a>
 #### Ubuntu
 
 ```sh
 bash -c "$(wget -qO- https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
 ```
 
+<a id="install-me-macos"></a>
 #### macOS
 
 ```sh
