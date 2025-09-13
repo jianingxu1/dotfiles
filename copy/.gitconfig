@@ -1,14 +1,10 @@
 [core]
-  autocrlf = input
-  editor = vim
-  excludesfile = ~/.gitignore_global
-[color]
-    ui = auto
-[core]
     autocrlf = input
     editor = vim
     excludesfile = ~/.gitignore_global
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[color]
+    ui = auto
 [diff]
     tool = vscode
 [difftool "vscode"]
@@ -38,6 +34,7 @@
   c = commit --verbose
   ca = commit -a --verbose
   cm = commit -m
+  cam = commit -a -m
 
   # Fixing
   rt = restore
