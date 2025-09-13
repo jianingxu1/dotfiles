@@ -1,21 +1,6 @@
 # Editing
 
 export VISUAL=vim
-
-# If mvim is installed, use it instead of native vim
-if [[ "$(which mvim)" ]]; then
-    VISUAL="mvim -v"
-    alias vim="$VISUAL"
-fi
-
-if [[ ! "$SSH_TTY" ]]; then
-  if [[ ! "$TMUX" ]]; then
-    is_osx && VISUAL=mvim || VISUAL=gvim
-  fi
-  export LESSEDIT="$VISUAL ?lm+%lm -- %f"
-  export GIT_EDITOR="$VISUAL -f"
-fi
-
 export EDITOR="$VISUAL"
 
 # VS Code
