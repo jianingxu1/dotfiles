@@ -20,9 +20,8 @@
   gl = config --global -l         # list all configurations
 
   # Information
-  st = status -sb         # short status
-  ll = log --oneline      # short log
-  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  st = status --short --branch         # short status
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short # short log
 
   # Navigation
   b = branch
@@ -32,14 +31,14 @@
   # Commit
   a = add
   c = commit --verbose
-  ca = commit -a --verbose
-  cm = commit -m
-  cam = commit -a -m
+  ca = commit --all --verbose
+  cm = commit --message
+  cam = commit --all --message
 
   # Fixing
   rt = restore
   fix = commit --amend --verbose
-  afix = commit -a --amend --verbose
+
   # Undo last commit but keep changed files in stage
   uncommit = reset --soft HEAD~1
   rei = rebase -i
