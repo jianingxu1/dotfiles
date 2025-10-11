@@ -5,6 +5,9 @@ alias sconfig="source ~/.zshrc"
 alias vconfig="vim ~/.zshrc"
 alias svenv="source .venv/bin/activate"
 
+# Add syntax highlighting to cat with bat
+command -v bat >/dev/null 2>&1 && alias cat='bat --style plain --paging=never'
+
 # Arc
 alias af="arc flow"
 alias ad="arc diff"
