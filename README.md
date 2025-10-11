@@ -1,32 +1,30 @@
 # Dotfiles
 
-My OSX / Ubuntu dotfiles.
-
 ## Installation
 
-### macOS (cloning the repository)
-```sh
-git clone https://github.com/jianingxu1/dotfiles.git ~/.dotfiles --recursive
-~/.dotfiles/bin/dotfiles
-source ~/.zshrc
-```
-
-### macOS (w/o cloning the repository)
-
+### macOS
 ```sh
 export DOTFILES_GH_USER=jianingxu1
 export DOTFILES_GH_BRANCH=main
 bash -c "$(curl -fsSL https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.zshrc
 ```
 
-### Ubuntu (w/o cloning the repository)
-
+Or:
 ```sh
-export DOTFILES_GH_USER=jianingxu1
-export DOTFILES_GH_BRANCH=main
-bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
+git clone https://github.com/jianingxu1/dotfiles.git ~/.dotfiles --recursive
+~/.dotfiles/bin/dotfiles
+source ~/.zshrc
 ```
 
+### To update the dotfiles:
+```sh
+dotfiles
+```
+
+### To modify the dotfiles:
+Just modify the ~/.dotfiles repository that has been cloned in your machine, and add the commits.
+
+To push the changes, you have to before:
 Use a personal SSH key for this repository (when you already have a work key)
 If your machine already uses a work SSH key tied to your company GitHub, pushes from this repo may fail or be attributed to the wrong account. By creating a separate personal key and wiring this repo to use it (via an SSH host alias), you can keep both keys side-by-side without affecting other repos.
 
@@ -57,10 +55,6 @@ git remote set-url origin git@github.com-personal:jianingxu1/dotfiles.git
 # Now pushes from this repo will use your personal key
 ```
 
-Since you'll be using the [dotfiles][dotfiles] command on subsequent runs, you'll only have to set the `DOTFILES_GH_USER` variable for the initial install, but if you have a custom branch, you _will_ need to export `DOTFILES_GH_BRANCH` for subsequent runs.
-
-There's a lot of stuff that requires admin access via `sudo`, so be warned that you might need to enter your password here or there.
- 
 ## Index
 
 - [About this project](#about-this-project)
@@ -125,7 +119,6 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
 * Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
 * Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
-* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [init/50_osx_fonts.sh](init/50_osx_fonts.sh) script
 
 #### Ubuntu
 * APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
