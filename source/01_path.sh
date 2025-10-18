@@ -2,5 +2,6 @@
 PATH="$DOTFILES/bin:$HOME/bin:/usr/local/sbin:$PATH"
 PATH="$PATH:/opt/homebrew/bin"
 PATH="$PATH:/opt/homebrew/sbin"
+PATH="$HOME/.local/bin:$PATH"
 
 export -U PATH
