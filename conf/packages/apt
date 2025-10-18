@@ -1,5 +1,11 @@
-catimg
+autossh
+bat
+fd-find
 fzf
+git
+git-open
+git-delta
+grep
 htop
 jq
 ncdu
@@ -7,3 +13,8 @@ neofetch
 python3
 python3-pip
 ranger
+ripgrep
+tmux
+tree
+vim
+zsh
