@@ -3,25 +3,28 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
-brew "autossh"
-brew "bat"
-brew "fzf"
+
+brew "autossh" # Keeps SSH sessions/tunnels alive; auto-restarts on failure
+brew "bat" # Cat alternative with syntax highlighting, git integration, paging
+brew "fd"
+brew "fzf" # Command-line fuzzy finder for files, history, processes, etc.
 brew "git"
-brew "git-open"
-brew "gmp"
-brew "gnupg"
-brew "gnutls"
+brew "git-delta" # Git diff viewer with syntax highlighting, git integration, paging
+brew "git-open" # Opens the current repo/branch in your browser from the CLI
 brew "grep"
-brew "htop"
+brew "htop" # Interactive process viewer/manager
 brew "jq"
-brew "mas"
+brew "mas" # Mac App Store CLI (search, install, update MAS apps)
 brew "ncdu"
-brew "neofetch"
+brew "neofetch" #  System info display (OS, kernel, CPU, RAM) in the terminal
 brew "python3"
+brew "ranger"
+brew "ripgrep"
 brew "tmux"
 brew "tree"
 brew "vim"
 brew "zsh"
+
 cask "alt-tab"
 cask "discord"
 cask "docker"
@@ -38,5 +41,6 @@ cask "slack"
 cask "ticktick"
 cask "visual-studio-code"
 cask "zoom"
+
 mas "Amphetamine", id: 937984704
 mas "Bitwarden", id: 1352778147
