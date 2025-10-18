@@ -1,0 +1,4 @@
+[submodule "link/.zgenom"]
+	path = link/.zgenom
+	url = git@github.com:jandamm/zgenom.git
+	branch = main
