@@ -26,19 +26,6 @@ if ! zgenom saved; then
 
   zgenom load zsh-users/zsh-syntax-highlighting  # Provides CLI syntax highlighting
 
-  # Setup eget to download core apps
-  test -d "$HOME/bin" || mkdir -p "$HOME/bin"
-  command -v eget > /dev/null 2>&1 || (bash "$DOTFILES/scripts/eget.sh" && mv $HOME/eget $HOME/bin/)
-
-  # Install core apps using eget
-  command -v zoxide > /dev/null 2>&1 || eget ajeetdsouza/zoxide
-  command -v bat > /dev/null 2>&1 || eget sharkdp/bat
-
-  # Execute commands which are dependent on the binaries being available
-  if (( $+commands[zoxide] )); then
-    zgenom eval --name zoxide <<(zoxide init zsh --cmd cd)
-  fi
-
   # Save all to init script
   zgenom save
 
