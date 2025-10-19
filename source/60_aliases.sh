@@ -5,6 +5,13 @@ alias sconfig="source ~/.zshrc"
 alias vconfig="vim ~/.zshrc"
 alias svenv="source .venv/bin/activate"
 
+# In Ubuntu, bat is called batcat due to a name clash
+if [[ "$(uname -s)" == "Linux" ]]; then
+    if [[ ! -e ~/.local/bin/bat ]]; then
+        mkdir -p ~/.local/bin
+        ln -s /usr/bin/batcat ~/.local/bin/bat
+    fi
+fi
 # Add syntax highlighting to cat with bat
 command -v bat >/dev/null 2>&1 && alias cat='bat --style plain --paging=never'
 
