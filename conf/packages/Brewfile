@@ -1,9 +1,3 @@
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/core"
-tap "homebrew/services"
-
 brew "autossh" # Keeps SSH sessions/tunnels alive; auto-restarts on failure
 brew "bat" # Cat alternative with syntax highlighting, git integration, paging
 brew "fd"
