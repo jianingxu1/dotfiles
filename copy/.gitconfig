@@ -1,6 +1,8 @@
 [user]
     name = Jianing Xu
     email = 58917306+jianingxu1@users.noreply.github.com
+[init]
+    defaultBranch = main
 [core]
     autocrlf = input                       # Configures safe handling of line endings (use 'true' on Windows).
     editor = vim                           # Sets the default text editor for commit messages, merges, and rebase.
