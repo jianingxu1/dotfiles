@@ -7,7 +7,7 @@ alias svenv="source .venv/bin/activate"
 
 # In Ubuntu, bat is called batcat due to a name clash
 if [[ "$(uname -s)" == "Linux" ]]; then
-    if [[ ! -e ~/.local/bin/bat ]]; then
+    if [[ ! -e ~/.local/bin/bat && ! -L ~/.local/bin/bat ]]; then
         mkdir -p ~/.local/bin
         ln -s /usr/bin/batcat ~/.local/bin/bat
     fi
