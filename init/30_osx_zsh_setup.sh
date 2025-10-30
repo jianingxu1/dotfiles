@@ -1,6 +1,3 @@
-# OSX-only stuff. Abort if not OSX.
-is_osx || return 1
-
 # Install Oh My Zsh if not already installed
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   e_header "Installing Oh My Zsh"
