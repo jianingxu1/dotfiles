@@ -13,6 +13,10 @@
     fsmonitor = true                       # Massively speeds up 'git status' by using a background process to monitor file system changes.
     commitGraph = true                     # Enables Git to use the binary Commit Graph file for faster history commands like 'git log --graph' and 'git blame'.
     pager = less -FX                       # Uses 'less' as a pager, quitting automatically if output fits on one screen.
+[status]
+    showUntrackedFiles = no                # Skips scanning untracked files in 'git status' for much faster operation in large repos.
+    submoduleSummary = false                # Disables submodule summary calculation (faster if not using submodules).
+    aheadBehind = false                    # Skips ahead/behind calculations for faster 'git status' (trade-off: less branch info).
 [color]
     ui = auto                              # Enables colorful output for all color-supporting Git commands.
 [diff]
