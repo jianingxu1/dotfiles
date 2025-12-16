@@ -15,13 +15,15 @@ fi
 # Add syntax highlighting to cat with bat
 command -v bat >/dev/null 2>&1 && alias cat='bat --style plain --paging=never'
 
-# Arc
-alias af="arc flow"
-alias ad="arc diff"
-alias ap="arc patch"
+# Arh
+alias aco="arh checkout"
+alias af="arh feature"
+alias apr="arh pull -r"
+alias apub="arh publish"
 
 # Information
 alias gs="git status --short --branch"
+alias gst="git status"
 alias glog="git log --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 alias glg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
@@ -32,16 +34,17 @@ alias gsw="git switch"
 
 # Commit
 alias gad="git add"
-alias gco="git commit --verbose"
 alias gcm="git commit --message"
 alias gcam="git commit --all --message"
 
 # Fixing
 alias grt="git restore"
+alias grts="git restore --staged"
 alias gfix="git commit --amend --verbose"
 alias grei="git rebase -i"
 alias greiall="git rebase -i --root"
 alias gcont="git rebase --continue"
+alias gabort="git rebase --abort"
 
 alias gd="git diff"
 alias gpu="git pull"
