@@ -45,6 +45,8 @@ alias grei="git rebase -i"
 alias greiall="git rebase -i --root"
 alias gcont="git rebase --continue"
 alias gabort="git rebase --abort"
+# Undo last commit but keep changed files in stage
+alias guncommit="git reset --soft HEAD~1"
 
 alias gd="git diff"
 alias gpu="git pull"
