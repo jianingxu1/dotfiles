@@ -1,3 +1,4 @@
+# SSH to remote host and attach/create tmux session with autossh persistence
 rtmux() {
     case "$2" in
         "") autossh -M 0 $1 -t "if tmux -qu has; then tmux -qu attach; else EDITOR=emacs tmux -qu new; fi";;
