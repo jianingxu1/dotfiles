@@ -44,6 +44,14 @@ else
   e_success "zsh-syntax-highlighting already installed"
 fi
 
+# alias-tips
+if [[ ! -d "$ZSH_CUSTOM/plugins/alias-tips" ]]; then
+  e_header "Installing alias-tips plugin"
+  git clone https://github.com/djui/alias-tips.git "$ZSH_CUSTOM/plugins/alias-tips" || e_error "Failed to clone alias-tips"
+else
+  e_success "alias-tips already installed"
+fi
+
 # Install iTerm2 if not already installed (via Homebrew)
 if [[ ! -d "/Applications/iTerm.app" ]]; then
   if [[ "$(type -P brew)" ]]; then
