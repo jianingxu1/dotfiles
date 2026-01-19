@@ -23,4 +23,6 @@ if [[ ! -z "$DEVPOD_NAME" ]]; then
     source "$HOME/.fzf.zsh"
 fi
 
-source <(fzf --zsh)
+if command -v fzf &>/dev/null; then
+  source <(fzf --zsh)
+fi
