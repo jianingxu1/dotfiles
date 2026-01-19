@@ -10,12 +10,12 @@ fi
 P10K_THEME_DIR="$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
 if [[ ! -d "$P10K_THEME_DIR" ]]; then
   e_header "Installing Powerlevel10k theme"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_THEME_DIR"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_THEME_DIR" || { e_error "Failed to clone Powerlevel10k"; return 1; }
 else
   e_success "Powerlevel10k already installed"
   # Update existing installation
   e_header "Updating Powerlevel10k theme"
-  cd "$P10K_THEME_DIR" && git pull
+  (cd "$P10K_THEME_DIR" && git pull) || e_error "Failed to update Powerlevel10k"
 fi
 
 # Ensure zsh is the default shell
@@ -31,7 +31,7 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 # zsh-autosuggestions
 if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
   e_header "Installing zsh-autosuggestions plugin"
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || e_error "Failed to clone zsh-autosuggestions"
 else
   e_success "zsh-autosuggestions already installed"
 fi
@@ -39,7 +39,7 @@ fi
 # zsh-syntax-highlighting
 if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
   e_header "Installing zsh-syntax-highlighting plugin"
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" || e_error "Failed to clone zsh-syntax-highlighting"
 else
   e_success "zsh-syntax-highlighting already installed"
 fi
