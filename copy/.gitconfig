@@ -32,29 +32,3 @@
     # List available aliases
     aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
     gl = config --global -l         # list all configurations
-
-    # Information
-    st = status --short --branch         # short status
-    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short # short log
-
-    # Navigation
-    b = branch
-    co = checkout
-    sw = switch
-
-    # Commit
-    a = add
-    c = commit --verbose
-    ca = commit --all --verbose
-    cm = commit --message
-    cam = commit --all --message
-
-    # Fixing
-    rt = restore
-    fix = commit --amend --verbose
-
-    # Undo last commit but keep changed files in stage
-    uncommit = reset --soft HEAD~1
-    rei = rebase -i
-    reiall = rebase -i --root
-    cont = rebase --continue
