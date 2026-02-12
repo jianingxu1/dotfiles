@@ -2,12 +2,14 @@ brew "autossh" # Keeps SSH sessions/tunnels alive; auto-restarts on failure
 brew "bat" # Cat alternative with syntax highlighting, git integration, paging
 brew "fd"
 brew "fzf" # Command-line fuzzy finder for files, history, processes, etc.
+brew "gh"
 brew "git"
 brew "git-delta" # Git diff viewer with syntax highlighting, git integration, paging
 brew "git-open" # Opens the current repo/branch in your browser from the CLI
 brew "grep"
 brew "htop" # Interactive process viewer/manager
 brew "jq"
+brew "lazygit"
 brew "mas" # Mac App Store CLI (search, install, update MAS apps)
 brew "ncdu"
 brew "neofetch" #  System info display (OS, kernel, CPU, RAM) in the terminal
@@ -21,20 +23,23 @@ brew "zoxide"
 brew "zsh"
 
 cask "alt-tab"
+cask "contexts"
 cask "cursor"
 cask "discord"
-cask "docker"
-cask "flux"
+cask "docker-desktop"
+cask "flux-app"
+cask "font-jetbrains-mono"
+cask "ghostty"
 cask "google-chrome"
 cask "hiddenbar"
 cask "iterm2"
 cask "notion"
+cask "obsidian"
 cask "raycast"
 cask "rectangle"
 cask "slack"
 cask "ticktick"
-cask "visual-studio-code"
 cask "zoom"
 
-mas "Amphetamine", id: 937984704
-mas "Bitwarden", id: 1352778147
+# mas "Amphetamine", id: 937984704
+# mas "Bitwarden", id: 1352778147
