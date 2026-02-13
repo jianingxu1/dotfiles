@@ -1,31 +1,25 @@
-# source "${HOME}/.zgenom/zgenom.zsh"
+if [[ -n "$ZSH_ZGENOM_PLUGINS_LOADED" ]]; then
+  return
+fi
+ZSH_ZGENOM_PLUGINS_LOADED=1
 
-# if ! zgenom saved; then
-#   zgenom ohmyzsh
+ZGENOM_DIR="${ZGENOM_DIR:-$HOME/.zgenom}"
+ZGENOM_PATH="$ZGENOM_DIR/zgenom.zsh"
 
-#   # Completions
-#   zgenom load unixorn/fzf-zsh-plugin
-#   zgenom ohmyzsh plugins/fzf
-#   zgenom ohmyzsh plugins/command-not-found  # Provide suggested packages to be installed if a command cannot be found
-#   zgenom load zsh-users/zsh-autosuggestions
-#   zgenom load zsh-users/zsh-completions
-#   zgenom load chitoku-k/fzf-zsh-completions
-#   zgenom ohmyzsh plugins/bazel
+if [[ ! -r "$ZGENOM_PATH" ]]; then
+  return
+fi
 
-#   # Navigation
-#   zgenom ohmyzsh plugins/zoxide # Smarter cd command
-#   zgenom load toku-sa-n/zsh-dot-up  # Quickly navigate up directories in the file system
-#   ## IMPORTANT: zsh-dot-up has to be loaded before zsh-syntax-highlighting
+source "$ZGENOM_PATH"
 
-#   zgenom load zsh-users/zsh-syntax-highlighting  # Provides CLI syntax highlighting
-
-#   # Save all to init script
-#   zgenom save
-
-#   # Compile your zsh files
-#   zgenom compile "$HOME/.zshrc"
-
-#   # You can perform other "time consuming" maintenance tasks here as well.
-#   # If you use `zgenom autoupdate` you're making sure it gets
-#   # executed every 7 days.
-# fi
+if ! zgenom saved; then
+  zgenom ohmyzsh
+  zgenom load zsh-users/zsh-autosuggestions
+  zgenom load zsh-users/zsh-syntax-highlighting
+  zgenom load djui/alias-tips
+  zgenom load zsh-users/zsh-completions
+  zgenom load unixorn/fzf-zsh-plugin
+  zgenom load chitoku-k/fzf-zsh-completions
+  zgenom load toku-sa-n/zsh-dot-up
+  zgenom save
+fi
