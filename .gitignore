@@ -9,6 +9,8 @@
 
 # Don't commit Vim plugins, vim-plug will install them.
 /link/.vim/plugged
+# Don't commit plug.vim; it's installed by .vimrc or init script and updated by PlugUpgrade.
+/link/.vim/autoload/plug.vim
 
 # Don't commit rbenv temp files.
 /link/.rbenv/shims/
@@ -23,3 +25,4 @@
 
 # Ignore any file with LOCAL in the name (good for per-machine vars/functions)
 *LOCAL*
+
