@@ -8,9 +8,9 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-completions            # Extra completions for docker, npm, and more
   zgenom load zsh-users/zsh-autosuggestions        # Suggests commands from history as you type; accept with right-arrow
   zgenom load zsh-users/zsh-syntax-highlighting   # Colors commands green (valid) or red (error) as you type (load last)
+  zgenom load aloxaf/fzf-tab                  # Tab completion via fzf instead of the default menu
   zgenom load chitoku-k/fzf-zsh-completions  # Fuzzy-find and pick from the completion list
   zgenom load unixorn/fzf-zsh-plugin          # fzf keybindings and shell integration (**<Tab>, etc.)
-  zgenom load aloxaf/fzf-tab                  # Tab completion via fzf instead of the default menu
   zgenom load djui/alias-tips                      # Hints when an alias exists for the command you just ran
 
   zgenom load ajeetdsouza/zoxide  # Smarter cd (z <partial path> jumps to freq-used dirs)
