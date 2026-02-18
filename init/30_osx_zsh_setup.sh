@@ -18,13 +18,6 @@ else
   (cd "$P10K_THEME_DIR" && git pull) || e_error "Failed to update Powerlevel10k"
 fi
 
-# Ensure zsh is the default shell
-if [[ "$SHELL" != "$(which zsh)" ]]; then
-  e_header "Setting zsh as default shell"
-  chsh -s "$(which zsh)"
-  e_success "Zsh set as default shell (restart terminal to take effect)"
-fi
-
 # Install useful zsh plugins
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
