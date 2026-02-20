@@ -1,0 +1,13 @@
+# Allowlist approach - ignore everything by default
+*
+*/
+
+# Only allow these essential config files
+!.gitignore
+!settings.json
+!keybindings.json
+
+# Allow scripts directory and its contents
+!scripts
+!scripts/
+!scripts/*

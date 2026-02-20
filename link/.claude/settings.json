@@ -1,0 +1,68 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat)",
+      "Bash(cat :*)",
+      "Bash(ls)",
+      "Bash(ls :*)",
+      "Bash(head :*)",
+      "Bash(tail :*)",
+      "Bash(grep :*)",
+      "Bash(find :*)",
+      "Bash(tree)",
+      "Bash(tree :*)",
+      "Bash(pwd)",
+      "Bash(echo :*)",
+      "Bash(which :*)",
+      "Bash(wc :*)",
+      "Bash(diff :*)",
+      "Bash(file :*)"
+    ]
+  },
+  "model": "opus",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Code needs your permission to proceed\" with title \"Claude Code - Action Required\" sound name \"Ping\"'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude has been waiting for your input (60+ seconds)\" with title \"Claude Code - Idle\" sound name \"Glass\"'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Additional input required for MCP tool\" with title \"Claude Code\" sound name \"Submarine\"'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh"
+  },
+  "enabledPlugins": {
+    "uber-dev@agent-marketplace": true,
+    "ci-debugger@agent-marketplace": true,
+    "uber-reviewer@agent-marketplace": true,
+    "minion-dev@agent-marketplace": true
+  },
+  "skipDangerousModePermissionPrompt": true
+}
