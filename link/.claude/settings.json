@@ -29,6 +29,11 @@
             "type": "command",
             "command": "osascript -e 'display notification \"Claude Code needs your permission to proceed\" with title \"Claude Code - Action Required\" sound name \"Ping\"'",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "printf '\\a'",
+            "timeout": 1
           }
         ]
       },
@@ -39,6 +44,11 @@
             "type": "command",
             "command": "osascript -e 'display notification \"Claude has been waiting for your input (60+ seconds)\" with title \"Claude Code - Idle\" sound name \"Glass\"'",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "printf '\\a'",
+            "timeout": 1
           }
         ]
       },
@@ -49,6 +59,11 @@
             "type": "command",
             "command": "osascript -e 'display notification \"Additional input required for MCP tool\" with title \"Claude Code\" sound name \"Submarine\"'",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "printf '\\a'",
+            "timeout": 1
           }
         ]
       }
