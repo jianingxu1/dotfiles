@@ -13,6 +13,7 @@ brew "lazygit"
 brew "mas" # Mac App Store CLI (search, install, update MAS apps)
 brew "ncdu"
 brew "neofetch" #  System info display (OS, kernel, CPU, RAM) in the terminal
+brew "neovim"
 brew "opencode"
 brew "python3"
 brew "ranger"
