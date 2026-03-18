@@ -32,7 +32,7 @@
           },
           {
             "type": "command",
-            "command": "printf '\\a'",
+            "command": "printf '\\a' > /dev/tty",
             "timeout": 1
           }
         ]
@@ -47,7 +47,7 @@
           },
           {
             "type": "command",
-            "command": "printf '\\a'",
+            "command": "printf '\\a' > /dev/tty",
             "timeout": 1
           }
         ]
@@ -62,7 +62,7 @@
           },
           {
             "type": "command",
-            "command": "printf '\\a'",
+            "command": "printf '\\a' > /dev/tty",
             "timeout": 1
           }
         ]
