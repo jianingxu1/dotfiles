@@ -44,3 +44,6 @@ alias guncommit="git reset --soft HEAD~1"
 
 alias gd="git diff"
 alias gpu="git pull"
+
+# Claude Code
+alias cc="aifx agent run claude --dangerously-skip-permissions"
