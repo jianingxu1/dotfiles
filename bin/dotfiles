@@ -295,9 +295,9 @@ function init_files() {
   fi
   prompt_menu "Run the following init scripts?" $prompt_delay
   # Write out cache file for future reading.
-  rm "$init_file" 2>/dev/null
+  : > "$init_file" || return 1
   for i in "${!menu_selects[@]}"; do
-    echo "${menu_selects[i]}" >> "$init_file"
+    echo "${menu_selects[i]}" >> "$init_file" || return 1
     echo "$dirname/${menu_selects[i]}"
   done
 }
@@ -345,19 +345,22 @@ function config_do() {
 
 # Copy, link, init, etc.
 function do_stuff() {
-  local base dest skip
-  local files=($DOTFILES/$1/*)
-  [[ $(declare -f "$1_files") ]] && files=($($1_files "${files[@]}"))
+  local base dest skip selected
+  local files=("$DOTFILES"/"$1"/*)
+  if [[ $(declare -f "$1_files") ]]; then
+    selected=$("$1_files" "${files[@]}") || return 1
+    files=($selected)
+  fi
   # No files? abort.
-  if (( ${#files[@]} == 0 )); then return; fi
+  if (( ${#files[@]} == 0 )); then return 0; fi
   # Run _header function only if declared.
   [[ $(declare -f "$1_header") ]] && "$1_header"
   # Iterate over files.
   for file in "${files[@]}"; do
-    base="$(basename $file)"
+    base="$(basename "$file")"
     # Get dest path.
     if [[ $(declare -f "$1_dest") ]]; then
-      dest="$("$1_dest" "$base")"
+      dest="$("$1_dest" "$base")" || return 1
     else
       dest="$HOME/$base"
     fi
@@ -370,19 +373,20 @@ function do_stuff() {
         continue
       fi
       # Destination file already exists in ~/. Back it up!
-      if [[ -e "$dest" ]]; then
+      if [[ -e "$dest" || -L "$dest" ]]; then
         e_arrow "Backing up ~/$base."
         # Set backup flag, so a nice message can be shown at the end.
         backup=1
         # Create backup dir if it doesn't already exist.
-        [[ -e "$backup_dir" ]] || mkdir -p "$backup_dir"
+        mkdir -p "$backup_dir" || return 1
         # Backup file / link / whatever.
-        mv "$dest" "$backup_dir"
+        mv "$dest" "$backup_dir" || return 1
       fi
     fi
     # Do stuff.
-    "$1_do" "$base" "$file"
+    "$1_do" "$base" "$file" || return 1
   done
+  return 0
 }
 
 # Enough with the functions, let's do stuff.
@@ -459,7 +463,7 @@ fi
 # with recent XCode or CLT)
 if [[ ! "$(type -P git)" ]] && is_ubuntu; then
   e_header "Installing Git"
-  sudo apt-get -qq install git-core
+  sudo apt-get -qq install git-core || exit 1
 fi
 
 # If Git isn't installed by now, something exploded. We gots to quit!
@@ -473,15 +477,15 @@ if [[ ! -d $DOTFILES ]]; then
   # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
   git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git $DOTFILES
-  cd $DOTFILES
+    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git "$DOTFILES" || exit 1
+  cd "$DOTFILES" || exit 1
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.
   e_header "Updating dotfiles"
-  cd $DOTFILES
-  prev_head="$(git rev-parse HEAD)"
-  git pull
-  git submodule update --init --recursive --quiet
+  cd "$DOTFILES" || exit 1
+  prev_head="$(git rev-parse HEAD)" || exit 1
+  git pull || exit 1
+  git submodule update --init --recursive --quiet || exit 1
   if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
     if is_dotfiles_bin; then
       e_header "Changes detected, restarting script"
@@ -501,17 +505,17 @@ shopt -s dotglob
 shopt -s nullglob
 
 # Create caches dir and init subdir, if they don't already exist.
-mkdir -p "$DOTFILES/caches/init"
+mkdir -p "$DOTFILES/caches/init" || exit 1
 
 # If backups are needed, this is where they'll go.
 backup_dir="$DOTFILES/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
 
 # Execute code for each file in these subdirectories.
-do_stuff copy
-do_stuff link
-do_stuff config
-do_stuff init
+do_stuff copy || exit 1
+do_stuff link || exit 1
+do_stuff config || exit 1
+do_stuff init || exit 1
 
 # Alert if backups were made.
 if [[ "$backup" ]]; then

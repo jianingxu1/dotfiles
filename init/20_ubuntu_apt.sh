@@ -1,5 +1,5 @@
 # Ubuntu specific configuration
-is_ubuntu || return 1
+is_ubuntu || return 0
 
 sudo apt update || { e_error "apt update failed"; return 1; }
-cat "$DOTFILES/conf/packages/apt" | xargs sudo apt install --assume-yes
+xargs sudo apt install --assume-yes < "$DOTFILES/conf/packages/apt" || return 1
