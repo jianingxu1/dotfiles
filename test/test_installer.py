@@ -73,6 +73,22 @@ copy_do() { cp "$2" "$DOTFILES/destination"; }
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(self.destination.read_text(), "original")
 
+    def test_config_link_creates_missing_parent(self):
+        source = self.root / "config" / "nvim"
+        source.mkdir(parents=True)
+        result = self.run_shell('''
+config_dest() { echo "$DOTFILES/user-config/$1"; }
+do_stuff config
+''')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        destination = self.root / "user-config" / "nvim"
+        self.assertTrue(destination.is_symlink())
+        self.assertEqual(destination.resolve(), source.resolve())
+        self.assertEqual(self.run_shell('''
+config_dest() { echo "$DOTFILES/user-config/$1"; }
+do_stuff config
+''').returncode, 0)
+
     def test_failed_pull_stops_before_copying(self):
         main = INSTALLER.split('# Initialize.\nif [[ ! -d $DOTFILES ]]', 1)[1]
         main = 'if [[ ! -d $DOTFILES ]]' + main
