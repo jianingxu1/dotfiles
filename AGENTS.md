@@ -2,6 +2,8 @@
 
 Be concise, direct, and practical. Use plain language. Be critical and honest when asked for advice.
 
+Keep this file concise and update it whenever repository structure, setup, or validation changes.
+
 This is a personal dotfiles repository for macOS and Ubuntu. The interactive shell is Zsh; the installer is Bash. Edit the repository files that own a setting, using the map below. Keep changes small and preserve existing comments and unrelated local edits.
 
 ## Where to make changes
@@ -17,9 +19,8 @@ This is a personal dotfiles repository for macOS and Ubuntu. The interactive she
 | History and autosuggestion settings                                 | `source/50_history.sh`                                    |
 | fzf bindings, previews, and Devpod setup                            | `source/70_fzf.sh`                                        |
 | Remote tmux attachment helper (`rtmux`)                             | `source/70_tmux.sh`                                       |
-| Shell entry point, `src`/`dotfiles` functions, Conda initialization | `link/.zshrc`                                             |
+| Shell entry point and `src`/`dotfiles` functions | `link/.zshrc`                                             |
 | tmux keys, panes, windows, status bar                               | `link/.tmux.conf`                                         |
-| tmux agent status detection (`RUN`, `WAIT`, `IDLE`)                 | `link/.tmux/scripts/agent_state.sh`                       |
 | Ghostty settings                                                    | `config/ghostty/config`                                   |
 | Vim options, mappings, plugins, colors                              | `link/.vimrc`                                             |
 | Neovim options, mappings, autocmds                                  | `config/nvim/lua/config/{options,keymaps,autocmds}.lua`   |
@@ -37,17 +38,16 @@ This is a personal dotfiles repository for macOS and Ubuntu. The interactive she
 
 ## Shell loading order
 
-1. `~/.zshrc` links to `link/.zshrc`, which sets `DOTFILES=~/.dotfiles`.
+1. `~/.zshrc` links to `link/.zshrc`, which loads the instant prompt and sets `DOTFILES=~/.dotfiles`.
 2. Its `src` function sources **every entry** in `source/` in filename order.
 3. `source/00_dotfiles.sh` sources `bin/dotfiles` with the `source` argument. This defines shared helpers and returns before installer actions.
 4. The remaining files load PATH, plugins, prompt, editor/history, aliases, then fzf/tmux helpers.
-5. The Conda-managed block in `link/.zshrc` runs after `src`, so it can change PATH afterward.
 
 Put new shell behavior in the appropriate existing `source/` file. If it needs its own file, use a numbered `.sh` filename that places it after its dependencies. These files run in Zsh despite the extension. Do not place notes, backups, or subdirectories in `source/`: the loader does not filter for `.sh`.
 
-`src 60_aliases` reloads a single module; `src` reloads all modules. `source ~/.zshrc` also reruns Conda initialization. The `dotfiles` shell function runs the full installer and then `src`; it is not just a shell reload.
+`src 60_aliases` reloads a single module; `src` reloads all modules. `source ~/.zshrc` reloads the entry point. The `dotfiles` shell function runs the full installer and then `src`; it is not just a shell reload.
 
-Zgenom manages plugins through `source/20_plugins.sh` and caches the saved configuration. After changing that plugin list, `zgenom reset` followed by a fresh shell rebuilds it and may download plugins. Oh My Zsh is separately loaded by `source/30_p10k.sh` only when `$ZSH/oh-my-zsh.sh` exists; its current plugin array is `plugins=(git)`.
+Zgenom manages plugins through `source/20_plugins.sh` and caches the saved configuration. Changes to that plugin list invalidate the saved setup in a fresh shell and may download plugins. Existing shells keep their loaded plugins. Oh My Zsh is separately loaded by `source/30_p10k.sh` only when `$ZSH/oh-my-zsh.sh` exists; its current plugin array is `plugins=(git)`.
 
 ## Installation and file ownership
 
@@ -55,7 +55,7 @@ Zgenom manages plugins through `source/20_plugins.sh` and caches the saved confi
 
 - `copy/`: copies each top-level entry into `~/`. `copy/.gitconfig` is a template; edits to it do not immediately change `~/.gitconfig`. The installer can skip a newer destination.
 - `link/`: symlinks each top-level entry into `~/`, including hidden files and whole directories. For example, `link/.tmux.conf` becomes `~/.tmux.conf`.
-- `config/`: symlinks each top-level entry into `~/.config/`, currently `ghostty` and `nvim`. The implementation assumes `~/.config` exists.
+- `config/`: symlinks each top-level entry into `~/.config/`, currently `ghostty` and `nvim`. Missing parent directories are created before linking.
 - `init/`: selects and sources scripts in filename order, with OS-based defaults and remembered selections in `caches/init/selected`.
 
 Existing destinations may be moved into timestamped `backups/` directories. Running the installer can pull Git changes, replace home-directory configs, install or upgrade packages, and update Vim plugins. Do not use it as a routine validation command.
@@ -67,7 +67,7 @@ Init scripts:
 - `30_osx_homebrew_recipes.sh`: upgrades packages, installs `mas`, applies the Brewfile, and cleans up.
 - `50_vim.sh`: creates `caches/vim`, downloads vim-plug if needed, and upgrades/updates Vim plugins.
 
-Edit repository sources directly. Before assuming a home-directory file reflects the repo, inspect its symlink. In particular, an existing real `~/.tmux/` directory can differ from `link/.tmux/`; the status command in `.tmux.conf` expects `~/.tmux/scripts/agent_state.sh` to be available.
+Edit repository sources directly. Before assuming a home-directory file reflects the repo, inspect its symlink.
 
 ## Dependencies and generated files
 
@@ -80,7 +80,7 @@ Edit repository sources directly. Before assuming a home-directory file reflects
 
 ## Validation
 
-There is no checked-in test suite or CI configuration. Validate only the affected behavior and report what was actually checked.
+Run installer regression tests with `python3 -m unittest discover -s test -v`. They use temporary directories and mocked setup commands. There is no CI configuration. Report what was actually checked.
 
 For shell syntax checks without executing startup or installer actions:
 
@@ -90,14 +90,13 @@ zsh -f -n link/.p10k.zsh
 for file in source/*.sh; do zsh -f -n "$file" || break; done
 bash -n bin/dotfiles
 for file in init/*.sh; do bash -n "$file" || break; done
-bash -n link/.tmux/scripts/agent_state.sh
 git diff --check
 ```
 
-These checks do not prove runtime behavior. Shell startup can run plugin updates, Conda hooks, or Devpod installation. Test interactive behavior deliberately when relevant. For tmux changes, use a separate test server/socket so the user's active sessions are unaffected.
+These checks do not prove runtime behavior. Shell startup can run plugin updates or Devpod installation. Test interactive behavior deliberately when relevant. For tmux changes, use a separate test server/socket so the user's active sessions are unaffected.
 
 Start and finish with `git status --short` and inspect the diff. If Git reports an fsmonitor IPC error, use `git -c core.fsmonitor=false status --short` for that invocation instead of changing Git settings.
 
 ## Documentation caveats
 
-Use the current files as the source of truth. `README.md` contains inherited references to absent Bash entry points, `test/`, `vendor/`, Xcode and cask init scripts. `conf/README_zsh_setup.md` mentions an absent Zsh setup script and `.zshenv`, and describes an older plugin setup. Do not recreate those files or follow those paths solely because the older docs mention them.
+Use the current files as the source of truth. `README.md` contains inherited references to absent Bash entry points, `vendor/`, Xcode and cask init scripts. `conf/README_zsh_setup.md` mentions an absent Zsh setup script and `.zshenv`, and describes an older plugin setup. Do not recreate those files or follow those paths solely because the older docs mention them.
