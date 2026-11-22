@@ -51,7 +51,7 @@ Zgenom manages plugins, Oh My Zsh (`plugins=(git)`), and Powerlevel10k through `
 
 ## Installation and file ownership
 
-`bin/dotfiles` is a self-contained Bash installer. It updates the checkout and submodules, then processes these directories in order:
+`bin/dotfiles` is a self-contained Bash installer. Bootstrap defaults to `jianingxu1/dotfiles` on `main` over HTTPS; `DOTFILES_GH_USER` and `DOTFILES_GH_BRANCH` override those defaults. It updates the checkout and submodules, then processes these directories in order:
 
 - `copy/`: copies each top-level entry into `~/`. `copy/.gitconfig` is a template; edits to it do not immediately change `~/.gitconfig`. The installer can skip a newer destination.
 - `link/`: symlinks each top-level entry into `~/`, including hidden files and whole directories. For example, `link/.tmux.conf` becomes `~/.tmux.conf`.

@@ -8,7 +8,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/jianingxu1/dotfiles
 
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -418,8 +418,8 @@ fi
 if [[ ! -d $DOTFILES ]]; then
   # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git "$DOTFILES" || exit 1
+  git clone --branch ${DOTFILES_GH_BRANCH:-main} --recursive \
+    https://github.com/${DOTFILES_GH_USER:-jianingxu1}/dotfiles.git "$DOTFILES" || exit 1
   cd "$DOTFILES" || exit 1
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.

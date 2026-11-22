@@ -105,6 +105,18 @@ do_stuff() { echo "unexpected action"; }
         self.assertNotEqual(result.returncode, 0)
         self.assertNotIn("unexpected action", result.stdout)
 
+    def test_bootstrap_uses_personal_repository_over_https(self):
+        main = INSTALLER.split('# Initialize.\nif [[ ! -d $DOTFILES ]]', 1)[1]
+        result = self.run_shell('''
+unset DOTFILES_GH_USER DOTFILES_GH_BRANCH
+DOTFILES="$DOTFILES/not-cloned"
+git() { printf '%s\n' "$@"; return 1; }
+''' + 'if [[ ! -d $DOTFILES ]]' + main)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("https://github.com/jianingxu1/dotfiles.git", result.stdout)
+        self.assertIn("main", result.stdout.splitlines())
+        self.assertNotIn("All done!", result.stdout)
+
     def test_failed_homebrew_command_stops_later_commands(self):
         script = (REPO / "init/30_osx_homebrew_recipes.sh").read_text()
         result = self.run_shell('''
