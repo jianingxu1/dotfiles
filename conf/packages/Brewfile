@@ -1,47 +1,58 @@
-brew "autossh" # Keeps SSH sessions/tunnels alive; auto-restarts on failure
-brew "bat" # Cat alternative with syntax highlighting, git integration, paging
-brew "fd"
-brew "fzf" # Command-line fuzzy finder for files, history, processes, etc.
-brew "gh"
-brew "git"
-brew "git-delta" # Git diff viewer with syntax highlighting, git integration, paging
-brew "git-open" # Opens the current repo/branch in your browser from the CLI
-brew "grep"
-brew "htop" # Interactive process viewer/manager
-brew "jq"
-brew "lazygit"
-brew "mas" # Mac App Store CLI (search, install, update MAS apps)
-brew "ncdu"
-brew "neofetch" #  System info display (OS, kernel, CPU, RAM) in the terminal
-brew "neovim"
-brew "opencode"
-brew "python3"
-brew "ranger"
-brew "ripgrep"
-brew "tmux"
-brew "tpm"
-brew "tree"
-brew "vim"
-brew "zoxide"
-brew "zsh"
+brew "autossh"							# Keeps SSH connected
+brew "bat"								# Cat with colors
+brew "fd"								# Finds files
+brew "fzf"								# Fuzzy search
+# brew "gemini-cli"						# Gemini CLI
+brew "gh"								# GitHub CLI
+brew "git"								# Version control
+brew "git-delta"						# Colored Git diffs
+brew "git-open"							# Opens repo in browser
+brew "grep"								# Searches text
+brew "htop"								# Process monitor
+brew "jq"								# JSON tool
+brew "lazygit"							# Git terminal UI
+brew "mas"								# Mac App Store CLI
+brew "ncdu"								# Disk usage
+brew "neofetch"							# System info
+brew "neovim"							# Terminal editor
+# brew "opencode"							# AI coding assistant
+brew "python3"							# Python runtime
+brew "ranger"							# Terminal file manager
+brew "ripgrep"							# Fast text search
+brew "tmux"								# Terminal sessions and panes
+brew "tpm"								# tmux plugin manager
+brew "tree"								# Folder tree
+# brew "uv"								# Python package manager
+brew "vim"								# Terminal editor
+brew "zoxide"							# Smart cd
+brew "zsh"								# Shell
 
-cask "alt-tab"
-cask "contexts"
-cask "cursor"
-cask "discord"
-cask "docker-desktop"
-cask "flux-app"
-cask "font-jetbrains-mono"
-cask "ghostty"
-cask "google-chrome"
-cask "hiddenbar"
-cask "notion"
-cask "obsidian"
-cask "raycast"
-cask "rectangle"
-cask "slack"
-cask "ticktick"
-cask "zoom"
+cask "alt-tab"							# Window switcher
+cask "codex"							# Codex CLI
+cask "codex-app"						# Codex desktop
+# cask "contexts"							# Window switcher
+# cask "cursor"							# AI code editor
+# cask "discord"							# Community chat
+# cask "docker-desktop"					# Runs containers
+cask "flux-app"							# Warmer screen colors
+cask "font-jetbrains-mono"				# Coding font
+cask "ghostty"							# Terminal
+cask "google-chrome"					# Web browser
+cask "google-drive"						# Google Drive sync
+cask "hiddenbar"						# Hides menu bar icons
+# cask "notion"							# Notes and databases
+cask "notion-calendar"					# Calendar app
+# cask "obsidian"							# Markdown notes
+cask "raycast"							# App launcher
+cask "rectangle"						# Window snapping
+# cask "slack"							# Team chat
+# cask "telegram"							# Messaging app
+# cask "ticktick"							# Tasks and reminders
+# cask "visual-studio-code"				# Code editor
+# cask "wispr-flow"						# Voice dictation
+# cask "zoom"								# Video calls
+# cask "zotero"							# Reference manager
 
-# mas "Amphetamine", id: 937984704
-# mas "Bitwarden", id: 1352778147
+mas "Dropover", id: 1355679052			# Drag and drop shelf
+mas "Amphetamine", id: 937984704		# Keeps Mac awake
+# mas "Bitwarden", id: 1352778147		# Password manager
