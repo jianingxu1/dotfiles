@@ -3,8 +3,6 @@ source "${HOME}/.zgenom/zgenom.zsh"
 
 # if the init script doesn't exist
 if ! zgenom saved; then
-  zgenom load p10k-instant-prompt # Speeds up startup time by a lot
-
   zgenom load zsh-users/zsh-completions            # Extra completions for docker, npm, and more
   zgenom load zsh-users/zsh-autosuggestions        # Suggests commands from history as you type; accept with right-arrow
   zgenom load zsh-users/zsh-syntax-highlighting   # Colors commands green (valid) or red (error) as you type (load last)
