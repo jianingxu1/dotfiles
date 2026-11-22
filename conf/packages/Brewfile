@@ -2,7 +2,7 @@ brew "autossh"							# Keeps SSH connected
 brew "bat"								# Cat with colors
 brew "fd"								# Finds files
 brew "fzf"								# Fuzzy search
-# brew "gemini-cli"						# Gemini CLI
+brew "gemini-cli"						# Gemini CLI
 brew "gh"								# GitHub CLI
 brew "git"								# Version control
 brew "git-delta"						# Colored Git diffs
@@ -22,7 +22,7 @@ brew "ripgrep"							# Fast text search
 brew "tmux"								# Terminal sessions and panes
 brew "tpm"								# tmux plugin manager
 brew "tree"								# Folder tree
-# brew "uv"								# Python package manager
+brew "uv"								# Python package manager
 brew "vim"								# Terminal editor
 brew "zoxide"							# Smart cd
 brew "zsh"								# Shell
@@ -32,27 +32,27 @@ cask "codex"							# Codex CLI
 cask "chatgpt"							# ChatGPT desktop
 # cask "contexts"							# Window switcher
 # cask "cursor"							# AI code editor
-# cask "discord"							# Community chat
-# cask "docker-desktop"					# Runs containers
+cask "discord"							# Community chat
+cask "docker-desktop"					# Runs containers
 cask "flux-app"							# Warmer screen colors
 cask "font-jetbrains-mono"				# Coding font
 cask "ghostty"							# Terminal
 cask "google-chrome"					# Web browser
 cask "google-drive"						# Google Drive sync
 cask "hiddenbar"						# Hides menu bar icons
-# cask "notion"							# Notes and databases
+cask "notion"							# Notes and databases
 cask "notion-calendar"					# Calendar app
 # cask "obsidian"							# Markdown notes
 cask "raycast"							# App launcher
 cask "rectangle"						# Window snapping
 # cask "slack"							# Team chat
 # cask "telegram"							# Messaging app
-# cask "ticktick"							# Tasks and reminders
+cask "ticktick"							# Tasks and reminders
 cask "visual-studio-code"				# Code editor
-# cask "wispr-flow"						# Voice dictation
+cask "wispr-flow"						# Voice dictation
 # cask "zoom"								# Video calls
-# cask "zotero"							# Reference manager
+cask "zotero"							# Reference manager
 
 mas "Dropover", id: 1355679052			# Drag and drop shelf
 mas "Amphetamine", id: 937984704		# Keeps Mac awake
-# mas "Bitwarden", id: 1352778147		# Password manager
+mas "Bitwarden", id: 1352778147		# Password manager
