@@ -1,5 +1,16 @@
 # load zgenom
-source "${HOME}/.zgenom/zgenom.zsh"
+source "$DOTFILES/link/.zgenom/zgenom.zsh" || return 1
+
+# Rebuild the saved plugin setup when this file changes.
+ZGEN_RESET_ON_CHANGE=("$DOTFILES/source/20_plugins.sh")
+
+# Existing shells keep their loaded plugins until the next fresh shell.
+[[ -z "$ZGENOM_PLUGINS" ]] || return 0
+
+# Migrate older saved setups that do not watch configuration changes.
+if [[ -f "$ZGEN_INIT" ]] && ! command grep -q ZGEN_RESET_ON_CHANGE "$ZGEN_INIT"; then
+  zgenom reset || return 1
+fi
 
 # if the init script doesn't exist
 if ! zgenom saved; then
