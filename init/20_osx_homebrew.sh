@@ -18,7 +18,10 @@ fi
 [[ ! "$(type -P brew)" ]] && e_error "Homebrew failed to install." && return 1
 
 e_header "Updating Homebrew"
-brew doctor || return 1
+# Doctor warnings are diagnostic and should not block package installation.
+if ! brew doctor; then
+  e_arrow "Homebrew doctor reported issues; continuing with package installation."
+fi
 brew update || return 1
 
 # Functions used in subsequent init scripts.

@@ -117,6 +117,31 @@ git() { printf '%s\n' "$@"; return 1; }
         self.assertIn("main", result.stdout.splitlines())
         self.assertNotIn("All done!", result.stdout)
 
+    def run_homebrew_setup(self, failure):
+        scripts = "\n".join(
+            (REPO / "init" / name).read_text()
+            for name in ("20_osx_homebrew.sh", "30_osx_homebrew_recipes.sh")
+        )
+        return self.run_shell('''
+is_osx() { return 0; }
+type() { echo brew; }
+brew() {
+  echo "brew $*"
+  [[ "$1" != "''' + failure + '''" ]]
+}
+''' + 'run_init() {\n' + scripts + '\n}; run_init')
+
+    def test_homebrew_doctor_warnings_do_not_block_packages(self):
+        result = self.run_homebrew_setup("doctor")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("brew update", result.stdout)
+        self.assertIn("brew bundle install --no-upgrade", result.stdout)
+
+    def test_homebrew_update_failure_blocks_packages(self):
+        result = self.run_homebrew_setup("update")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("brew bundle", result.stdout)
+
     def test_failed_homebrew_command_stops_later_commands(self):
         script = (REPO / "init/30_osx_homebrew_recipes.sh").read_text()
         result = self.run_shell('''

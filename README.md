@@ -27,6 +27,13 @@ brew bundle install --upgrade --file="$HOME/.dotfiles/conf/packages/Brewfile"
 ```
 
 The installer uses `--no-upgrade` and does not run blanket upgrades or cleanup.
+Homebrew doctor warnings are shown but do not block package installation. Update and installation failures still stop setup.
+
+To retry just the package installation:
+```sh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew bundle install --no-upgrade --file="$HOME/.dotfiles/conf/packages/Brewfile"
+```
 
 ### To modify the dotfiles:
 Just modify the ~/.dotfiles repository that has been cloned in your machine, and add the commits.
