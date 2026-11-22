@@ -74,7 +74,7 @@ Edit repository sources directly. Before assuming a home-directory file reflects
 - `link/.zgenom` is a Git submodule configured in `.gitmodules`. Change plugin declarations in `source/20_plugins.sh`; do not patch dependency code for ordinary configuration work.
 - `link/.zgenom/sources/` contains downloaded plugins and generated initialization files.
 - `link/.vim/plugged/` and `link/.vim/autoload/plug.vim` are installed dependencies, ignored by Git. Vim can install missing dependencies on startup.
-- `config/nvim/lua/plugins/example.lua` is disabled by an early `return {}`. Add actual plugin specs in separate files. Neovim startup can bootstrap lazy.nvim and install plugins.
+- Add Neovim plugin specs in `config/nvim/lua/plugins/`. Neovim startup can bootstrap lazy.nvim and install plugins.
 - `caches/`, `backups/`, tmux plugin/resurrect directories, and names containing `LOCAL` are ignored by the repository's `.gitignore`. Do not commit generated state or secrets. `LOCAL` files placed in `source/` still get sourced.
 - Use `git ls-files` for the maintained file inventory. Broad recursive searches include many downloaded plugins; scope searches to the owning directory and exclude dependencies.
 
