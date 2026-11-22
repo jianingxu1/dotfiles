@@ -13,11 +13,11 @@ This is a personal dotfiles repository for macOS and Ubuntu. The interactive she
 | Shell aliases and small command shortcuts                           | `source/60_aliases.sh`                                    |
 | PATH ordering                                                       | `source/01_path.sh`                                       |
 | Zgenom plugins, completions, shell integrations                     | `source/20_plugins.sh`                                    |
-| Prompt initialization and optional Oh My Zsh loading                | `source/30_p10k.sh`                                       |
+| Prompt appearance configuration loading                | `source/30_p10k.sh`                                       |
 | Prompt appearance and displayed segments                            | `link/.p10k.zsh`                                          |
 | Default editor, `q`, `qv`, `qs` helpers                             | `source/50_editor.sh`                                     |
 | History and autosuggestion settings                                 | `source/50_history.sh`                                    |
-| fzf bindings, previews, and Devpod setup                            | `source/70_fzf.sh`                                        |
+| fzf bindings and previews                            | `source/70_fzf.sh`                                        |
 | Remote tmux attachment helper (`rtmux`)                             | `source/70_tmux.sh`                                       |
 | Shell entry point and `src`/`dotfiles` functions | `link/.zshrc`                                             |
 | tmux keys, panes, windows, status bar                               | `link/.tmux.conf`                                         |
@@ -47,7 +47,7 @@ Put new shell behavior in the appropriate existing `source/` file. If it needs i
 
 `src 60_aliases` reloads a single module; `src` reloads all modules. `source ~/.zshrc` reloads the entry point. The `dotfiles` shell function runs the full installer and then `src`; it is not just a shell reload.
 
-Zgenom manages plugins through `source/20_plugins.sh` and caches the saved configuration. Changes to that plugin list invalidate the saved setup in a fresh shell and may download plugins. Existing shells keep their loaded plugins. Oh My Zsh is separately loaded by `source/30_p10k.sh` only when `$ZSH/oh-my-zsh.sh` exists; its current plugin array is `plugins=(git)`.
+Zgenom manages plugins, Oh My Zsh (`plugins=(git)`), and Powerlevel10k through `source/20_plugins.sh`. Changes invalidate the saved setup in a fresh shell and may download plugins. Existing shells keep their loaded plugins. Native fzf widgets load once via `conf/zsh/fzf.zsh`, before fzf-tab, autosuggestions, and highlighting. `source/70_fzf.sh` only sets fzf options.
 
 ## Installation and file ownership
 
@@ -80,7 +80,7 @@ Edit repository sources directly. Before assuming a home-directory file reflects
 
 ## Validation
 
-Run installer regression tests with `python3 -m unittest discover -s test -v`. They use temporary directories and mocked setup commands. There is no CI configuration. Report what was actually checked.
+Run regression tests with `python3 -m unittest discover -s test -v`. Installer tests mock setup commands; plugin tests run Zgenom with local fixtures. Both use temporary directories without network access. There is no CI configuration. Report what was actually checked.
 
 For shell syntax checks without executing startup or installer actions:
 
@@ -93,7 +93,7 @@ for file in init/*.sh; do bash -n "$file" || break; done
 git diff --check
 ```
 
-These checks do not prove runtime behavior. Shell startup can run plugin updates or Devpod installation. Test interactive behavior deliberately when relevant. For tmux changes, use a separate test server/socket so the user's active sessions are unaffected.
+These checks do not prove runtime behavior. Shell startup can download or update plugins. Test interactive behavior deliberately when relevant. For tmux changes, use a separate test server/socket so the user's active sessions are unaffected.
 
 Start and finish with `git status --short` and inspect the diff. If Git reports an fsmonitor IPC error, use `git -c core.fsmonitor=false status --short` for that invocation instead of changing Git settings.
 
