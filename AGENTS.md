@@ -64,7 +64,7 @@ Init scripts:
 
 - `20_osx_homebrew.sh`: installs Homebrew if missing, runs doctor/update, and defines Homebrew helpers.
 - `20_ubuntu_apt.sh`: updates APT and installs `conf/packages/apt`.
-- `30_osx_homebrew_recipes.sh`: upgrades packages, installs `mas`, applies the Brewfile, and cleans up.
+- `30_osx_homebrew_recipes.sh`: applies the Brewfile with `--no-upgrade`. Package upgrades and cleanup are separate manual actions.
 - `50_vim.sh`: creates `caches/vim`, downloads vim-plug if needed, and upgrades/updates Vim plugins.
 
 Edit repository sources directly. Before assuming a home-directory file reflects the repo, inspect its symlink.

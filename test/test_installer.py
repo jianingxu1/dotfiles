@@ -116,6 +116,20 @@ brew() { echo "brew $*"; return 1; }
         self.assertNotIn("brew cleanup", result.stdout)
         self.assertEqual(len(result.stdout.splitlines()), 1)
 
+    def test_homebrew_setup_does_not_upgrade_or_cleanup(self):
+        script = (REPO / "init/30_osx_homebrew_recipes.sh").read_text()
+        result = self.run_shell('''
+is_osx() { return 0; }
+type() { echo brew; }
+brew() {
+  case "$1" in upgrade|cleanup) return 99 ;; esac
+  echo "$*"
+}
+''' + 'run_init() {\n' + script + '\n}; run_init')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--no-upgrade", result.stdout)
+        self.assertNotIn("brew cleanup", result.stdout)
+
     def test_other_os_is_skipped(self):
         script = (REPO / "init/30_osx_homebrew_recipes.sh").read_text()
         result = self.run_shell('is_osx() { return 1; }; brew() { exit 99; };\nrun_init() {\n' + script + '\n}; run_init')

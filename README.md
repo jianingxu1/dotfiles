@@ -21,6 +21,13 @@ source ~/.zshrc
 dotfiles
 ```
 
+### To upgrade installed macOS packages:
+```sh
+brew bundle install --upgrade --file="$HOME/.dotfiles/conf/packages/Brewfile"
+```
+
+The installer uses `--no-upgrade` and does not run blanket upgrades or cleanup.
+
 ### To modify the dotfiles:
 Just modify the ~/.dotfiles repository that has been cloned in your machine, and add the commits.
 
