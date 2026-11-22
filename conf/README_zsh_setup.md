@@ -1,45 +1,32 @@
-# Zsh + Oh My Zsh + Powerlevel10k Setup
+# Zsh setup
 
-This dotfiles configuration includes automated setup for:
+The installer links `link/.zshrc`, `link/.p10k.zsh`, and the Zgenom submodule into your home directory. It installs Zsh through the OS package list; it does not change your login shell. Select Zsh in your terminal or use `chsh` separately if needed.
 
-- **Zsh** as the default shell
-- **Oh My Zsh** framework
-- **Powerlevel10k** theme
-- **Useful zsh plugins**
+On startup, `link/.zshrc` loads the instant-prompt cache and then the numbered files in `source/`.
 
-## What gets installed
+## Plugins and completions
 
-### Init Scripts
-- `30_osx_zsh_setup.sh`: Installs Oh My Zsh, Powerlevel10k, and useful plugins
+Edit `source/20_plugins.sh`. Zgenom manages:
 
-### Linked Files
-- `.zshrc`: Main zsh configuration
-- `.p10k.zsh`: Powerlevel10k theme configuration
-- `.zshenv`: Environment variables
+- Oh My Zsh with the `git` plugin and completion initialization.
+- Extra Zsh completions, native fzf widgets, and fzf-tab.
+- alias-tips, zoxide, zsh-dot-up, and Zgenom updates.
+- Powerlevel10k, autosuggestions, and syntax highlighting.
 
-### Plugins Installed
-- **zsh-autosuggestions**: Fish-like autosuggestions
-- **zsh-syntax-highlighting**: Syntax highlighting for commands
-- **git**: Git aliases and functions
-- **brew**: Homebrew completions
-- **macos**: macOS-specific aliases
+The first fresh shell after a plugin-list change rebuilds the saved setup and may download plugins. Existing shells retain their loaded plugins. Install fzf and zoxide through the package lists before opening the shell. Native fzf integration requires a version supporting `fzf --zsh`.
 
-## Manual Steps After Running Dotfiles
+Keep fzf widgets before fzf-tab, then autosuggestions and syntax highlighting. Do not initialize the framework or fzf again in other startup files.
 
-1. **Restart your terminal** or run `exec zsh` to switch to zsh
-3. **Run `p10k configure`** if you want to reconfigure the prompt
+## Where to customize
 
-## Customization
+| Setting | File |
+| --- | --- |
+| Plugin list and order | `source/20_plugins.sh` |
+| Native fzf initialization | `conf/zsh/fzf.zsh` |
+| fzf keys and preview options | `source/70_fzf.sh` |
+| Prompt appearance | `link/.p10k.zsh` or `p10k configure` |
+| Aliases | `source/60_aliases.sh` |
+| PATH | `source/01_path.sh` |
+| History and autosuggestions | `source/50_history.sh` |
 
-### Adding More Plugins
-Edit `~/.dotfiles/link/.zshrc` and add plugins to the `plugins=()` array.
-
-### Customizing the Prompt
-Run `p10k configure` or edit `~/.dotfiles/link/.p10k.zsh` directly.
-
-## Compatibility
-
-The setup maintains compatibility with the existing bash-based dotfiles:
-- All `source/*.sh` files are loaded in zsh
-- Bash functions and aliases work in zsh
-- The setup gracefully handles both bash and zsh environments
+Use `src 60_aliases` to reload aliases. Open a fresh shell to apply plugin-list changes. The interactive configuration uses Zsh syntax despite the `.sh` extension; Bash runs the installer only.

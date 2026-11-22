@@ -8,33 +8,33 @@ This is a personal dotfiles repository for macOS and Ubuntu. The interactive she
 
 ## Where to make changes
 
-| Change                                                              | File or directory                                         |
-| ------------------------------------------------------------------- | --------------------------------------------------------- |
-| Shell aliases and small command shortcuts                           | `source/60_aliases.sh`                                    |
-| PATH ordering                                                       | `source/01_path.sh`                                       |
-| Zgenom plugins, completions, shell integrations                     | `source/20_plugins.sh`                                    |
-| Prompt appearance configuration loading                | `source/30_p10k.sh`                                       |
-| Prompt appearance and displayed segments                            | `link/.p10k.zsh`                                          |
-| Default editor, `q`, `qv`, `qs` helpers                             | `source/50_editor.sh`                                     |
-| History and autosuggestion settings                                 | `source/50_history.sh`                                    |
-| fzf bindings and previews                            | `source/70_fzf.sh`                                        |
-| Remote tmux attachment helper (`rtmux`)                             | `source/70_tmux.sh`                                       |
-| Shell entry point and `src`/`dotfiles` functions | `link/.zshrc`                                             |
-| tmux keys, panes, windows, status bar                               | `link/.tmux.conf`                                         |
-| Ghostty settings                                                    | `config/ghostty/config`                                   |
-| Vim options, mappings, plugins, colors                              | `link/.vimrc`                                             |
-| Neovim options, mappings, autocmds                                  | `config/nvim/lua/config/{options,keymaps,autocmds}.lua`   |
-| Neovim plugin additions and overrides                               | New Lua specs in `config/nvim/lua/plugins/`               |
-| Neovim bootstrap and LazyVim setup                                  | `config/nvim/init.lua`, `config/nvim/lua/config/lazy.lua` |
-| LazyVim extras and pinned plugin versions                           | `config/nvim/lazyvim.json`, `config/nvim/lazy-lock.json`  |
-| Neovim Lua formatting                                               | `config/nvim/stylua.toml` (2 spaces, 120 columns)         |
-| Shared Git configuration template                                   | `copy/.gitconfig`                                         |
-| Global Git ignore patterns                                          | `link/.gitignore_global`                                  |
-| macOS CLI tools, GUI apps, Mac App Store apps                       | `conf/packages/Brewfile`                                  |
-| Ubuntu packages                                                     | `conf/packages/apt`                                       |
-| Installation, updates, copies, symlinks, init selection             | `bin/dotfiles`                                            |
-| OS-specific setup and installation steps                            | `init/*.sh`                                               |
-| User-facing installation documentation                              | `README.md`, `conf/README_zsh_setup.md`                   |
+| Change | File or directory |
+| --- | --- |
+| Shell aliases and small command shortcuts | `source/60_aliases.sh` |
+| PATH ordering | `source/01_path.sh` |
+| Zgenom plugins, completions, shell integrations | `source/20_plugins.sh` |
+| Prompt appearance configuration loading | `source/30_p10k.sh` |
+| Prompt appearance and displayed segments | `link/.p10k.zsh` |
+| Default editor, `q`, `qv`, `qs` helpers | `source/50_editor.sh` |
+| History and autosuggestion settings | `source/50_history.sh` |
+| fzf bindings and previews | `source/70_fzf.sh` |
+| Remote tmux attachment helper (`rtmux`) | `source/70_tmux.sh` |
+| Shell entry point and `src`/`dotfiles` functions | `link/.zshrc` |
+| tmux keys, panes, windows, status bar | `link/.tmux.conf` |
+| Ghostty settings | `config/ghostty/config` |
+| Vim options, mappings, plugins, colors | `link/.vimrc` |
+| Neovim options, mappings, autocmds | `config/nvim/lua/config/{options,keymaps,autocmds}.lua` |
+| Neovim plugin additions and overrides | New Lua specs in `config/nvim/lua/plugins/` |
+| Neovim bootstrap and LazyVim setup | `config/nvim/init.lua`, `config/nvim/lua/config/lazy.lua` |
+| LazyVim extras and pinned plugin versions | `config/nvim/lazyvim.json`, `config/nvim/lazy-lock.json` |
+| Neovim Lua formatting | `config/nvim/stylua.toml` (2 spaces, 120 columns) |
+| Shared Git configuration template | `copy/.gitconfig` |
+| Global Git ignore patterns | `link/.gitignore_global` |
+| macOS CLI tools, GUI apps, Mac App Store apps | `conf/packages/Brewfile` |
+| Ubuntu packages | `conf/packages/apt` |
+| Installation, updates, copies, symlinks, init selection | `bin/dotfiles` |
+| OS-specific setup and installation steps | `init/*.sh` |
+| User-facing installation documentation | `README.md`, `conf/README_zsh_setup.md` |
 
 ## Shell loading order
 
@@ -87,9 +87,9 @@ For shell syntax checks without executing startup or installer actions:
 ```sh
 zsh -f -n link/.zshrc
 zsh -f -n link/.p10k.zsh
-for file in source/*.sh; do zsh -f -n "$file" || break; done
+for file in source/*.sh conf/zsh/*.zsh; do zsh -f -n "$file" || exit 1; done
 bash -n bin/dotfiles
-for file in init/*.sh; do bash -n "$file" || break; done
+for file in init/*.sh; do bash -n "$file" || exit 1; done
 git diff --check
 ```
 
@@ -97,6 +97,6 @@ These checks do not prove runtime behavior. Shell startup can download or update
 
 Start and finish with `git status --short` and inspect the diff. If Git reports an fsmonitor IPC error, use `git -c core.fsmonitor=false status --short` for that invocation instead of changing Git settings.
 
-## Documentation caveats
+## Documentation
 
-Use the current files as the source of truth. `README.md` contains inherited references to absent Bash entry points, `vendor/`, Xcode and cask init scripts. `conf/README_zsh_setup.md` mentions an absent Zsh setup script and `.zshenv`, and describes an older plugin setup. Do not recreate those files or follow those paths solely because the older docs mention them.
+`README.md` covers installation and validation; `conf/README_zsh_setup.md` covers Zsh setup and customization. Keep them consistent with the code.

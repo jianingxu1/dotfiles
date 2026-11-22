@@ -69,12 +69,14 @@ git remote set-url origin git@github.com-personal:jianingxu1/dotfiles.git
   - [Other subdirectories](#other-subdirectories)
   - [The "copy" step](#the-copy-step)
   - [The "link" step](#the-link-step)
+  - [The "config" step](#the-config-step)
   - [The "init" step](#the-init-step)
     - [OS X](#os-x)
     - [Ubuntu](#ubuntu)
     - [Both](#both)
 - [Hacking my dotfiles](#hacking-my-dotfiles)
 - [Aliases and Functions](#aliases-and-functions)
+- [Validation](#validation)
 - [Inspiration](#inspiration)
 - [License](#license)
 
@@ -96,10 +98,11 @@ When [dotfiles][dotfiles] is run for the first time, it does a few things:
 1. This repo is cloned into your user directory, under `~/.dotfiles`.
 1. Files in `/copy` are copied into `~/`. ([read more](#the-copy-step))
 1. Files in `/link` are symlinked into `~/`. ([read more](#the-link-step))
+1. Directories in `/config` are symlinked into `~/.config/`.
 1. You are prompted to choose scripts in `/init` to be executed. The installer attempts to only select relevant scripts, based on the detected OS and the script filename.
 1. Your chosen init scripts are executed (in alphanumeric order, hence the funky names). ([read more](#the-init-step))
 
-On subsequent runs, step 1 is skipped, step 2 just updates the already-existing repo, and step 5 remembers what you selected the last time. The other steps are the same.
+On subsequent runs, step 1 is skipped, step 2 just updates the already-existing repo, and the init selection remembers what you selected the last time. The other steps are the same.
 
 ### Other subdirectories
 
@@ -108,37 +111,50 @@ On subsequent runs, step 1 is skipped, step 2 just updates the already-existing 
 * The `/caches` directory contains cached files, used by some scripts or functions.
 * The `/conf` directory just exists. If a config file doesn't **need** to go in `~/`, reference it from the `/conf` directory.
 * The `/source` directory contains files that are sourced whenever a new shell is opened (in alphanumeric order, hence the funky names).
-* The `/test` directory contains unit tests for especially complicated bash functions.
-* The `/vendor` directory contains third-party libraries.
+* The `/config` directory holds app configs linked into `~/.config/`.
+* The `/test` directory contains installer and plugin-startup regression tests.
 
 ### The "copy" step
-Any file in the `/copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [copy/.gitconfig](copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
+Any file in the `/copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [copy/.gitconfig](copy/.gitconfig) which contains a name, email address, and shared Git defaults) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
 
 ### The "link" step
 Any file in the `/link` subdirectory gets symlinked into `~/` with `ln -s`. Edit one or the other, and you change the file in both places. Don't link files containing sensitive data, or you might accidentally commit that data! If you're linking a directory that might contain sensitive data (like `~/.ssh`) add the sensitive files to your [.gitignore](.gitignore) file!
 
+### The "config" step
+Each top-level entry in `/config` is linked into `~/.config/`. The installer creates missing parent directories and backs up existing destinations. Currently this installs Ghostty and Neovim configuration.
+
 ### The "init" step
-Scripts in the `/init` subdirectory will be executed. A whole bunch of things will be installed, but _only_ if they aren't already.
+Selected scripts in `/init` are sourced in filename order. Failures stop the installer. Homebrew setup installs declared packages with `--no-upgrade`; installing missing dependencies may still require dependency upgrades. Vim setup updates its plugins.
 
 #### OS X
 
-* Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
-* Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
-* Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
+* Homebrew formulae, casks, and Mac App Store apps from `conf/packages/Brewfile` via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
 
 #### Ubuntu
-* APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
+* APT packages from `conf/packages/apt` via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
 
 #### Both
 * Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
 
 ## Hacking my dotfiles
 
-Because the [dotfiles][dotfiles] script is completely self-contained, you should be able to delete everything else from your dotfiles repo fork, and it will still work. The only thing it really cares about are the `/copy`, `/link` and `/init` subdirectories, which will be ignored if they are empty or don't exist.
+Because the [dotfiles][dotfiles] script is completely self-contained, you should be able to delete everything else from your dotfiles repo fork, and it will still work. Its installation steps process the `/copy`, `/link`, `/config` and `/init` subdirectories, which will be ignored if they are empty or don't exist.
 
 ## Aliases and Functions
-To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened.
+The Zsh entry point is `link/.zshrc`. Add aliases, functions, and settings to the numbered files in `source/`; use `source/60_aliases.sh` for shortcuts. Every entry in `source/` is sourced in filename order, so keep notes and backups elsewhere.
+
+Zgenom manages Oh My Zsh, Powerlevel10k, and plugins in `source/20_plugins.sh`. Plugin-list changes rebuild the saved setup in a fresh shell. Native fzf integration loads once through `conf/zsh/fzf.zsh`; `source/70_fzf.sh` holds its options. See [the Zsh guide](conf/README_zsh_setup.md) and [the repository map](AGENTS.md).
+
+Use `src 60_aliases` to reload aliases or `src` to reload all modules. The `dotfiles` command also updates the repository and runs installation steps.
+
+## Validation
+
+```sh
+python3 -m unittest discover -s test -v
+```
+
+The tests use temporary directories and local fixtures without installing packages or downloading plugins. They do not replace testing a real fresh installation or interactive terminal.
 
 ## Inspiration
 <https://github.com/gf3/dotfiles>  
