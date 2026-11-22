@@ -29,7 +29,7 @@ brew "zsh"								# Shell
 
 cask "alt-tab"							# Window switcher
 cask "codex"							# Codex CLI
-cask "codex-app"						# Codex desktop
+cask "chatgpt"							# ChatGPT desktop
 # cask "contexts"							# Window switcher
 # cask "cursor"							# AI code editor
 # cask "discord"							# Community chat
@@ -48,7 +48,7 @@ cask "rectangle"						# Window snapping
 # cask "slack"							# Team chat
 # cask "telegram"							# Messaging app
 # cask "ticktick"							# Tasks and reminders
-# cask "visual-studio-code"				# Code editor
+cask "visual-studio-code"				# Code editor
 # cask "wispr-flow"						# Voice dictation
 # cask "zoom"								# Video calls
 # cask "zotero"							# Reference manager
