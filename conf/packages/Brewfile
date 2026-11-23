@@ -13,7 +13,7 @@ brew "jq"								# JSON tool
 brew "lazygit"							# Git terminal UI
 brew "mas"								# Mac App Store CLI
 brew "ncdu"								# Disk usage
-brew "neofetch"							# System info
+brew "fastfetch"							# System info
 brew "neovim"							# Terminal editor
 # brew "opencode"							# AI coding assistant
 brew "python3"							# Python runtime
