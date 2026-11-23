@@ -2,7 +2,6 @@ brew "autossh"							# Keeps SSH connected
 brew "bat"								# Cat with colors
 brew "fd"								# Finds files
 brew "fzf"								# Fuzzy search
-brew "gemini-cli"						# Gemini CLI
 brew "gh"								# GitHub CLI
 brew "git"								# Version control
 brew "git-delta"						# Colored Git diffs
@@ -28,7 +27,7 @@ brew "zoxide"							# Smart cd
 brew "zsh"								# Shell
 
 cask "alt-tab"							# Window switcher
-cask "codex"							# Codex CLI
+cask "antigravity-cli"					# Google Antigravity CLI
 cask "chatgpt"							# ChatGPT desktop
 # cask "contexts"							# Window switcher
 # cask "cursor"							# AI code editor
