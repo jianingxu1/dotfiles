@@ -30,7 +30,6 @@ cask "alt-tab"							# Window switcher
 cask "antigravity-cli"					# Google Antigravity CLI
 cask "chatgpt"							# ChatGPT desktop
 # cask "contexts"							# Window switcher
-# cask "cursor"							# AI code editor
 cask "discord"							# Community chat
 cask "docker-desktop"					# Runs containers
 cask "flux-app"							# Warmer screen colors
@@ -40,11 +39,12 @@ cask "google-chrome"					# Web browser
 cask "google-drive"						# Google Drive sync
 cask "hiddenbar"						# Hides menu bar icons
 cask "notion"							# Notes and databases
-cask "notion-calendar"					# Calendar app
 # cask "obsidian"							# Markdown notes
 cask "raycast"							# App launcher
 cask "rectangle"						# Window snapping
 # cask "slack"							# Team chat
+cask "stats"							# Menu bar system monitor
+cask "t3-code"							# AI coding app
 # cask "telegram"							# Messaging app
 cask "ticktick"							# Tasks and reminders
 cask "visual-studio-code"				# Code editor
